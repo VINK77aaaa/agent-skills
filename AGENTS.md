@@ -46,8 +46,16 @@ gh repo clone VINK77aaaa/rideclaw-credentials ~/rideclaw-credentials \
 flyai config set FLYAI_API_KEY "$(grep '^FLYAI_API_KEY=' ~/.rideclaw/credentials.env | cut -d= -f2)"
 ```
 
-3. **如果 clone 失败（404 / 无权限）**：停下来，明确告诉用户"需要 `<技能名>` 的 key"，
-   让用户提供。**不要猜测、不要编造、不要试图从仓库历史或其他地方翻找**。
+3. **如果 clone 失败（404 / 无权限）**：不要立刻要 key，先让用户补授权。
+   提示他执行 `gh auth login`（若已登录别的账号则 `gh auth switch`），确认账号正确后重试一次：
+
+```bash
+gh auth status
+gh repo clone VINK77aaaa/rideclaw-credentials ~/rideclaw-credentials
+```
+
+   仍然失败，才明确告诉用户"需要 `<技能名>` 的 key"，由用户提供。
+   **不要猜测、不要编造、不要试图从仓库历史或其他地方翻找**。
 
 4. 装完后只在回复里说明"已配置"，**不要回显 key 的任何字符**，包括前后几位。
 

@@ -44,7 +44,8 @@ mkdir -p ~/.rideclaw && cp ~/rideclaw-credentials/credentials.env ~/.rideclaw/
 flyai config set FLYAI_API_KEY "$(grep '^FLYAI_API_KEY=' ~/.rideclaw/credentials.env | cut -d= -f2)"
 ```
 
-拿不到权限也没关系——三个技能里只有 `rideclaw-mcp` 必须有令牌，`amap-maps-mcp` 和 `flyai` 都能先用试用额度跑。
+克隆失败通常是没登录或登录了别的账号，先 `gh auth login`（或 `gh auth switch`）再试一次即可。
+实在拿不到也没关系——三个技能里只有 `rideclaw-mcp` 必须有令牌，`amap-maps-mcp` 和 `flyai` 都能先用试用额度跑。
 细节见 [docs/credentials.md](docs/credentials.md)。
 
 ## 给 agent 的说明
