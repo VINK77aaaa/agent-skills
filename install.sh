@@ -72,3 +72,4 @@ done
 echo
 echo "完成。重启 agent 会话后技能才会被加载。"
 echo "rideclaw-mcp 需要令牌：见 docs/credentials.md"
+echo "flyai 需要先安装 CLI：npm i -g @fly-ai/flyai-cli"

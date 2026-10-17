@@ -19,6 +19,8 @@
   `python3 skills/rideclaw-mcp/scripts/mcp_call.py list`
 - `skills/amap-maps-mcp` — 高德地图。依赖运行时已绑定的高德 MCP Server，
   绑定方式见 `skills/amap-maps-mcp/mcp.json`（Streamable HTTP 或 npx 两种）。
+- `skills/flyai` — 飞猪 FlyAI 旅行搜索。先 `npm i -g @fly-ai/flyai-cli` 安装 CLI，
+  再按 `skills/flyai/SKILL.md` 与 `references/` 里的命令文档调用。
 
 ## 密钥约定
 

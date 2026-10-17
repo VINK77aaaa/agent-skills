@@ -13,6 +13,7 @@ bash ~/agent-skills/install.sh
 |---|---|---|
 | [`rideclaw-mcp`](skills/rideclaw-mcp/) | 龙虾出行开放平台：机票/酒店/打车/巴士/高铁查询与订单，含 Code Mode 沙箱编排（实测 59 个 MCP 工具） | Python 3.8+，零第三方依赖 |
 | [`amap-maps-mcp`](skills/amap-maps-mcp/) | 高德地图：POI 搜索/地理编码/路径规划/天气（16 个 MCP 工具） | 需绑定高德 MCP Server（见该目录 mcp.json） |
+| [`flyai`](skills/flyai/) | 飞猪 FlyAI：机票/酒店/火车/景点/门票搜索与预订（Fliggy MCP，关键词/语义双搜索） | Node 18+，`npm i -g @fly-ai/flyai-cli` |
 
 ## 安装
 

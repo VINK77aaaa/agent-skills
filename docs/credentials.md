@@ -8,6 +8,7 @@
 |---|---|---|
 | `RIDECLAW_TOKEN` | `rideclaw-mcp` | 龙虾出行开放平台令牌，形如 `rdak_live_...`；生产令牌可下单支付 |
 | `AMAP_MAPS_API_KEY` | `amap-maps-mcp` | 高德 Web 服务 Key（32 位） |
+| `FLYAI_API_KEY` | `flyai` | 飞猪 FlyAI Key，形如 `sk-...`；不配也可试用，配了结果更全 |
 
 ## 读取顺序
 
@@ -33,6 +34,11 @@ AMAP_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ```bash
 export AMAP_MAPS_API_KEY=$(grep '^AMAP_API_KEY=' ~/.rideclaw/credentials.env | cut -d= -f2)
+```
+
+```bash
+# flyai 的 key 由它自己的 CLI 保存，不是读环境变量
+flyai config set FLYAI_API_KEY "$(grep '^FLYAI_API_KEY=' ~/.rideclaw/credentials.env | cut -d= -f2)"
 ```
 
 - 高德 Key 建议在控制台配置域名/IP 白名单；龙虾出行要求来源 IP 在白名单内（未登记返回 `40303`）。
