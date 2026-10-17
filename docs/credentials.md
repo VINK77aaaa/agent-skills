@@ -2,6 +2,19 @@
 
 本仓库**不含任何真实密钥**。需要凭据的技能从本机文件或环境变量读取。
 
+## 密钥放在哪
+
+全部真实 key 集中在**私有仓库**：<https://github.com/VINK77aaaa/rideclaw-credentials>
+
+该仓库是私有的，clone 需要对应 GitHub 账号的访问权限。安装：
+
+```bash
+gh repo clone VINK77aaaa/rideclaw-credentials ~/rideclaw-credentials
+mkdir -p ~/.rideclaw && cp ~/rideclaw-credentials/credentials.env ~/.rideclaw/
+```
+
+没有权限时，直接向用户索取所需的单个 key 即可，不影响其他技能使用。
+
 ## 变量对照
 
 | 变量 | 技能 | 说明 |

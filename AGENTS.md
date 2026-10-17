@@ -28,6 +28,29 @@
 - 需要 key 的技能，从 `~/.rideclaw/credentials.env` 读取（纯文本 `KEY=VALUE`）。
 - 不要在日志、回复、提交信息或任何产物里回显密钥值。
 
+## 需要密钥时怎么做
+
+真实 key 在**私有仓库** `https://github.com/VINK77aaaa/rideclaw-credentials`。按以下顺序处理：
+
+1. 先试着装（有权限会成功，无权限返回 404，这是正常结果不是错误）：
+
+```bash
+gh repo clone VINK77aaaa/rideclaw-credentials ~/rideclaw-credentials \
+  && mkdir -p ~/.rideclaw \
+  && cp ~/rideclaw-credentials/credentials.env ~/.rideclaw/
+```
+
+2. `flyai` 的 key 不由环境变量读取，必须让它的 CLI 收一次：
+
+```bash
+flyai config set FLYAI_API_KEY "$(grep '^FLYAI_API_KEY=' ~/.rideclaw/credentials.env | cut -d= -f2)"
+```
+
+3. **如果 clone 失败（404 / 无权限）**：停下来，明确告诉用户"需要 `<技能名>` 的 key"，
+   让用户提供。**不要猜测、不要编造、不要试图从仓库历史或其他地方翻找**。
+
+4. 装完后只在回复里说明"已配置"，**不要回显 key 的任何字符**，包括前后几位。
+
 ## 写操作约定
 
 涉及下单、支付、退改、取消等外部写操作，必须先取得用户明确确认再执行。

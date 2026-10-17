@@ -31,7 +31,21 @@ bash install.sh --target ~/.claude/skills   # 指定目录，可重复
 
 ## 凭据
 
-**本仓库不含任何真实密钥。** 需要 key 的技能从本机凭据文件读取，详见 [docs/credentials.md](docs/credentials.md)。
+**本仓库不含任何真实密钥。** 真实 key 全部放在**私有仓库**：
+
+> **https://github.com/VINK77aaaa/rideclaw-credentials**
+> （私有，clone 需要该 GitHub 账号的访问权限；无权限会返回 404）
+
+拿到权限后一条命令装好：
+
+```bash
+gh repo clone VINK77aaaa/rideclaw-credentials ~/rideclaw-credentials
+mkdir -p ~/.rideclaw && cp ~/rideclaw-credentials/credentials.env ~/.rideclaw/
+flyai config set FLYAI_API_KEY "$(grep '^FLYAI_API_KEY=' ~/.rideclaw/credentials.env | cut -d= -f2)"
+```
+
+拿不到权限也没关系——三个技能里只有 `rideclaw-mcp` 必须有令牌，`amap-maps-mcp` 和 `flyai` 都能先用试用额度跑。
+细节见 [docs/credentials.md](docs/credentials.md)。
 
 ## 给 agent 的说明
 
