@@ -17,7 +17,7 @@ bash ~/agent-skills/install.sh
 
 ## 安装
 
-`install.sh` 会自动探测已存在的技能目录并安装（符号链接优先，失败自动退回复制）：
+`install.sh` 会自动探测已存在的技能目录并安装。默认符号链接，失败自动退回复制；**Windows（Git Bash / MSYS）上默认直接用复制**，因为那里 `ln -s` 生成的是空目录：
 
 ```bash
 bash install.sh                  # 自动探测

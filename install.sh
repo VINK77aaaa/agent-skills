@@ -6,6 +6,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$ROOT/skills"
 MODE="link"
+MODE_EXPLICIT=0
 TARGETS=()
 
 usage() {
@@ -23,8 +24,8 @@ EOF
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    --copy) MODE="copy"; shift ;;
-    --link) MODE="link"; shift ;;
+    --copy) MODE="copy"; MODE_EXPLICIT=1; shift ;;
+    --link) MODE="link"; MODE_EXPLICIT=1; shift ;;
     --target)
       [ $# -ge 2 ] || { echo "错误: --target 需要一个目录参数" >&2; exit 2; }
       TARGETS+=("$2"); shift 2 ;;
@@ -32,6 +33,20 @@ while [ $# -gt 0 ]; do
     *) echo "错误: 未知参数 $1" >&2; usage; exit 2 ;;
   esac
 done
+
+# Windows（Git Bash / MSYS / Cygwin）里 ln -s 会"成功"但生成解析不了的链接，
+# 装完目录是空的。这类平台默认改走复制。
+if [ "$MODE_EXPLICIT" -eq 0 ]; then
+  case "$(uname -s 2>/dev/null)" in
+    MINGW*|MSYS*|CYGWIN*|Windows_NT) MODE="copy" ;;
+  esac
+fi
+if [ "$MODE" = "link" ] && [ "$MODE_EXPLICIT" -eq 1 ]; then
+  case "$(uname -s 2>/dev/null)" in
+    MINGW*|MSYS*|CYGWIN*|Windows_NT)
+      echo "警告: 该平台不支持可用的符号链接，--link 会得到空目录，建议改用 --copy" >&2 ;;
+  esac
+fi
 
 if [ ${#TARGETS[@]} -eq 0 ]; then
   for c in "$HOME/.workbuddy-ai/skills" "$HOME/.claude/skills" "$HOME/.codex/skills"; do
@@ -56,7 +71,7 @@ for t in "${TARGETS[@]}"; do
       continue
     fi
     if [ "$MODE" = "link" ]; then
-      if ln -s "$d" "$dst" 2>/dev/null; then
+      if ln -s "$d" "$dst" 2>/dev/null && [ -f "$dst/SKILL.md" ]; then
         echo "    链接 $name"
       else
         cp -r "$d" "$dst"
